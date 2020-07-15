@@ -1,0 +1,23 @@
+<aura:component
+    implements="forceCommunity:availableForAllPageTypes"
+    access="global"
+    controller="AcmApiListController"
+>
+    <!-- handlers -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <!-- attributes -->
+    <aura:attribute name="apis" type="AcmApi[]" default="" />
+    <aura:attribute name="categories" type="AcmApiCategory[]" default="" />
+
+    <aura:if isTrue="{!v.apis}">
+        <div class="api-list-container">
+            <div class="slds-p-left_small slds-text-heading_large">API List ({!v.apis.length})</div>
+
+            <aura:iteration items="{!v.apis}" var="api">
+                <c:AcmApiItem api="{!api}" />
+            </aura:iteration>
+        </div>
+        <aura:set attribute="else"><lightning:spinner alternativeText="Loading" size="small" /></aura:set>
+    </aura:if>
+</aura:component>

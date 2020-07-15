@@ -1,0 +1,67 @@
+<aura:component>
+    <aura:attribute name="api" type="AcmApi" required="true" />
+    <aura:attribute name="apiJson" type="String" />
+    <aura:attribute name="blueBackground" type="Boolean" default="false" />
+    <aura:attribute name="smallLogo" type="Boolean" default="false" />
+    <aura:attribute
+        name="iconUrl"
+        type="String"
+        default="https://cdn.anypoint.mulesoft.com/artifacts/exchange-ui/images/API-icon.png"
+    />
+
+    <!-- handler -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <div class="c-container">
+        <lightning:layout verticalAlign="stretch">
+            <lightning:layoutItem flexibility="auto" padding="around-small">
+                <article class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container" title="icon">
+                                    <img
+                                        src="{!v.iconUrl}"
+                                        alt="API icon"
+                                        style="width: 50px; height: 50px"
+                                        class="api-card-icon api-catalog-card-icon"
+                                    />
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">
+                                    <div class="slds-card__header-link slds-truncate">
+                                        <span style="font-size: 120%">{!v.api.name}</span> &nbsp;
+                                    </div>
+                                </h2>
+                            </div>
+                            <div class="slds-no-flex">
+                                <lightning:button
+                                    variant="brand"
+                                    onclick="{!c.openRecord}"
+                                    label="View Details"
+                                />
+                            </div>
+                        </header>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">{!v.api.description}</div>
+                    <footer class="slds-card__footer" style="display: flex;">
+                        <div style="flex: 1 0 0; text-align: left">
+                            <lightning:badge label="{!'type: ' + v.api.assetType}" /> &nbsp;
+                            <aura:iteration items="{!v.api.categories}" var="category">
+                                <lightning:badge
+                                    label="{!category.name + ': ' + category.value}"
+                                    class="slds-badge_inverse"
+                                />
+                            </aura:iteration>
+                        </div>
+                        <div style="flex: 1 0 0">
+                            <lightning:badge label="{!'version: ' + v.api.version}" />
+                            <lightning:badge label="{!'asset version: ' + v.api.assetVersion}" class="slds-badge_lightest" />
+                        </div>
+                    </footer>
+                </article>
+            </lightning:layoutItem>
+        </lightning:layout>
+    </div>
+</aura:component>
